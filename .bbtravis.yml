@@ -1,14 +1,25 @@
 # BBTravis CI configuration file
 
+env:
+  - ENVIRONMNENT=sandbox
+  - ENVIRONMNENT=tech
+  - ENVIRONMNENT=live
+
 language: python
 python:
-    - 2.7
-    - 3.3
-    - 3.4
-    - 3.5
+  - 2.6
+  - 2.7
+
+matrix:
+  exclude:
+    - python: 2.7
+      env: ENVIRONMENT=live
+  include:
+    - python: 2.7
+      env: ENVIRONMENT=tech
 
 install:
-  - pip install -U pip
+    - pip install -U pip
     - pip install tox-travis
     - pip install coveralls
 
@@ -17,3 +28,9 @@ script:
 
 after_success:
     - coveralls
+    
+
+
+
+
+
